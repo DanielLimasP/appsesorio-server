@@ -1,3 +1,4 @@
+// I made a comment on this file just to modify the file and then show the modified file at github
 const mongoose = require('mongoose')
 const url = 'mongodb://localhost:appsesorio'
 mongoose.connect(url, {
