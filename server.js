@@ -15,9 +15,11 @@ app.use(bodyParser.json())
 app.use(methodOverride('_method'))
 
 // Routes
+const chat = require('./routes/chat')
 const users = require('./routes/users')
 const sessions = require('./routes/sessions')
 
+app.use('/chat', chat)
 app.use('/users', users)
 app.use('/sessions', sessions)
 
