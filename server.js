@@ -1,8 +1,8 @@
 const express = require('express')
-const session = requite('express-session')
-const passport = require('passport')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+const path = require('path')
 
-// Inits
 const app = express()
 require('./database')
 
@@ -10,13 +10,23 @@ require('./database')
 app.set('port', process.env.PORT || 4000)
 
 // Middlewares
-app.use(express.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+app.use(methodOverride('_method'))
 
 // Routes
-app.use(require('./routes/users'))
-app.use(require('./routes/sessions'))
+const users = require('./routes/users')
+const sessions = require('./routes/sessions')
 
-// Server init
-app.listen(app.get('port', () => {
-    console.log('Server working on PORT: ', app.get('port'))
-}))
+app.use('/users', users)
+app.use('/sessions', sessions)
+
+// Static files
+app.use(express.static(path.join(__dirname, 'public'))) 
+
+module.exports = app
+
+//Server Initialize
+app.listen(app.get('port'), ()=>{
+    console.log('Server on port', app.get('port'))
+})
