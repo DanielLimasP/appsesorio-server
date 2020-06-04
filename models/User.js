@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     password: { type:String, required: true},
     description: { type:String, required: true},
     topics: { type:String, required: true},
-    profileImg: {type:String, required: false},
+    profileImg: {type:String, required: true},
     rating: {type:String, required: false} 
 })
 

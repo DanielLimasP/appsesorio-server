@@ -5,17 +5,14 @@ const SessionModel = require('../models/Session')
 router.post('/user-sessions', async (req, res)=>{
     let userId = req.body.userid
     let userSessions = await SessionModel.find({user: userId})
-    console.log('<--------->')
     console.log({message: 'User sessions', sessions: userSessions})
     return res.status(200).send({message: 'User sessions', sessions: userSessions})
 })
 
-router.get('/all-sessions', async ()=>{
-    await SessionModel.find().sort({sessionDate: 'desc'}).then(res =>{
-        console.log('<--------->')
-        console.log({message: 'All sessions', sessions: res})
-        return {message: 'User sessions', sessions: res}
-    })
+router.get('/all-sessions', async (req, res)=>{
+    let allSessions = await SessionModel.find().sort({sessionDate: 'desc'})
+    console.log({Sessions: allSessions})
+    return res.status(200).send({message: 'All sessions', sessions: allSessions})
 })
 
 router.post('/new-session', async (req, res)=>{
